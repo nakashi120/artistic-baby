@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: DockerfilePython
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./code/backend:/code
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
