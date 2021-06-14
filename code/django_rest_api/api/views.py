@@ -42,7 +42,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     """Manage Comments in the database"""
-    queryset = Comment.object.all()
+    queryset = Comment.objects.all()
     serializer_class = serializers.CommentSerializer
 
     def perform_create(self, serializer):
