@@ -11,3 +11,16 @@ services:
       - ./code/django_rest_api:/code
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+  web_front:
+    build:
+      context: .
+      dockerfile: DockerfileNode
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./code/react_web_front:/code
+#    tty: true
+    command: >
+      sh -c "cd /code && yarn start"
+    depends_on:
+      - rest_api
