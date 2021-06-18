@@ -25,7 +25,7 @@ export const Header: VFC = memo(() => {
         <Box>
           <Link pr={5}>Profile</Link>
         </Box>
-        <Link>LogOut</Link>
+        <Link>Logout</Link>
       </Flex>
     </Flex>
   )
