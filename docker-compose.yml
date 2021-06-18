@@ -24,7 +24,7 @@ services:
       - ./code/react_web_front:/code
 #     If we don't mounted "node_modules" directory, it takes long time to use yarn command.
 #     Because all node module packages will be installed at every yarn command
-#     ex) yarn add "package"
+#     ex) yarn add "package-name"
       - 'node_modules_volume:/code/node_modules'
 #   When we create a container FIRST TIME, we have to use below command to create-react-app
 #   tty: true
