@@ -10,6 +10,7 @@ import {
   Stack,
 } from "@chakra-ui/react"
 import { ChangeEvent, memo, useState, VFC } from "react"
+import { useAuth } from "../../hooks/useAuth"
 import { PrimaryButton } from "../atoms/button/PrimaryButton"
 
 export const Login: VFC = memo(() => {
@@ -23,6 +24,9 @@ export const Login: VFC = memo(() => {
   const [password, setPassword] = useState("")
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value)
+
+  const { login } = useAuth()
+  const onClickLogin = () => login({ email, password })
 
   return (
     <Flex align="center" justify="center" height="100vh">
@@ -47,7 +51,7 @@ export const Login: VFC = memo(() => {
               </Button>
             </InputRightElement>
           </InputGroup>
-          <PrimaryButton>ログイン</PrimaryButton>
+          <PrimaryButton onClick={onClickLogin}>ログイン</PrimaryButton>
         </Stack>
       </Box>
     </Flex>
