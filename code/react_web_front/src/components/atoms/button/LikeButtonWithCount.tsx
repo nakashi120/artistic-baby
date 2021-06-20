@@ -1,7 +1,12 @@
-import type { HTMLChakraProps } from "@chakra-ui/react"
-import { Box, chakra, Icon, Text, Tooltip } from "@chakra-ui/react"
-import type { HTMLMotionProps } from "framer-motion"
-import { motion, useAnimation } from "framer-motion"
+import {
+  Box,
+  chakra,
+  HTMLChakraProps,
+  Icon,
+  Text,
+  Tooltip,
+} from "@chakra-ui/react"
+import { HTMLMotionProps, motion, useAnimation } from "framer-motion"
 import type { VFC } from "react"
 import { useState } from "react"
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
@@ -37,7 +42,7 @@ const LikeButtonWithCount: VFC<LikeButtonWithCountProps> = (
           cursor="pointer"
           onClick={toggleLike}
           animate={controls}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 2 }}
         >
           <Icon
             as={isLike ? AiFillHeart : AiOutlineHeart}

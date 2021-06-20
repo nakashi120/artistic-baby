@@ -24,7 +24,7 @@ export const PostCard: VFC<Props> = memo((props) => {
   const { avatarName, avatarImageSrc, postImageSrc } = props
 
   return (
-    <Box w="330px" h="550px" bg="white" borderRadius="10px" shadow="md" p={5}>
+    <Box w="330px" h="600px" bg="white" borderRadius="10px" shadow="md" p={5}>
       <Stack textAlign="left">
         <AvatarAndName name={avatarName} src={avatarImageSrc} size="sm" />
         <Image
@@ -47,6 +47,19 @@ export const PostCard: VFC<Props> = memo((props) => {
           <Avatar size="xs" />
           <Avatar size="xs" />
         </HStack>
+        {/* Other user's comment display area */}
+        <Divider orientation="horizontal" />
+        <Stack>
+          <HStack>
+            <Avatar size="2xs" />
+            <Text>sample comment</Text>
+          </HStack>
+          <HStack>
+            <Avatar size="2xs" />
+            <Text>sample comment</Text>
+          </HStack>
+        </Stack>
+        {/* Comment post area */}
         <Divider orientation="horizontal" />
         <Flex>
           <Input placeholder="add comment..." size="sm" variant="unstyled" />
