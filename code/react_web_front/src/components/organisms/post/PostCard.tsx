@@ -36,7 +36,7 @@ export const PostCard: VFC<Props> = memo((props) => {
         />
         <HStack>
           <LikeButtonWithCount count={10} isLiked={false} />
-          <AvatarAndName name={avatarName} src={avatarImageSrc} size="sm" />
+          <AvatarAndName name={avatarName} src={avatarImageSrc} size="xs" />
           <Text>Yeah!!!</Text>
         </HStack>
         <Divider orientation="horizontal" />

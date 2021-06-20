@@ -1,12 +1,28 @@
-import { Box, Divider, Flex, Heading, Input, Stack } from "@chakra-ui/react"
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Stack,
+} from "@chakra-ui/react"
 import { ChangeEvent, memo, useState, VFC } from "react"
 import { PrimaryButton } from "../atoms/button/PrimaryButton"
 
 export const Login: VFC = memo(() => {
-  const [email, setEmail] = useState("")
+  const [show, setShow] = useState(false)
+  const handleClick = () => setShow(!show)
 
+  const [email, setEmail] = useState("")
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value)
+
+  const [password, setPassword] = useState("")
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) =>
+    setPassword(e.target.value)
 
   return (
     <Flex align="center" justify="center" height="100vh">
@@ -17,7 +33,20 @@ export const Login: VFC = memo(() => {
         <Divider my={4} />
         <Stack spacing={6} py={4} px={10}>
           <Input placeholder="Email" value={email} onChange={onChangeEmail} />
-          <Input placeholder="password" />
+          <InputGroup size="md">
+            <Input
+              pr="4.5rem"
+              type={show ? "text" : "password"}
+              placeholder="Enter password"
+              onChange={onChangePassword}
+              value={password}
+            />
+            <InputRightElement width="4.5rem">
+              <Button h="1.75rem" size="sm" onClick={handleClick}>
+                {show ? "Hide" : "Show"}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
           <PrimaryButton>ログイン</PrimaryButton>
         </Stack>
       </Box>
