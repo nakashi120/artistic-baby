@@ -1,18 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Wrap, WrapItem } from "@chakra-ui/react"
-import { memo, VFC } from "react"
-
+import { memo, useEffect, VFC } from "react"
+import { useAllPosts } from "../../hooks/useAllPosts"
 import { PostCard } from "../organisms/post/PostCard"
 
 export const Home: VFC = memo(() => {
+  const { getPosts, posts } = useAllPosts()
+  useEffect(() => getPosts(), [])
   return (
     <>
       <Wrap p={{ base: 4, md: 10 }}>
-        {[...Array(10)].map(() => (
-          <WrapItem>
+        {posts.map((post) => (
+          <WrapItem key={post.id} mx="auto">
             <PostCard
-              avatarName="Nakashi"
+              avatarName={post.userPost}
               avatarImageSrc="https://bit.ly/dan-abramov"
-              postImageSrc="https://source.unsplash.com/random"
+              postImageSrc={post.img}
             />
           </WrapItem>
         ))}

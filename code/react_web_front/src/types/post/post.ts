@@ -1,7 +1,7 @@
 export type Post = {
   id: number
   title: string
-  userPost: number
-  img: File
+  userPost: string
+  img: string
   liked: number[]
 }
