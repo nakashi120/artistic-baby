@@ -1,12 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Wrap, WrapItem } from "@chakra-ui/react"
-import { memo, useEffect, VFC } from "react"
+import { memo, useContext, useEffect, VFC } from "react"
 import { useAllPosts } from "../../hooks/useAllPosts"
+import { LoginUserContext } from "../../providers/LoginUserProvider"
 import { PostCard } from "../organisms/post/PostCard"
 
 export const Home: VFC = memo(() => {
   const { getPosts, posts } = useAllPosts()
   useEffect(() => getPosts(), [])
+
+  const { loginUser } = useContext(LoginUserContext)
+  console.log("Home")
+
   return (
     <>
       <Wrap p={{ base: 4, md: 10 }}>

@@ -7,6 +7,7 @@ type Props = {
 }
 
 export const PrimaryButton: VFC<Props> = memo((props) => {
+  console.log("PrimaryButton")
   const { children, onClick } = props
 
   return (

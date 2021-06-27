@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios"
 import { useCallback, useContext } from "react"
+
 import { LoginUserContext } from "../providers/LoginUserProvider"
 import { Profile } from "../types/user/profile"
 import { useMessage } from "./useMessage"
 
 export const useLoginUser = () => {
   const { showMessage } = useMessage()
-  const { loginUser, setLoginUser } = useContext(LoginUserContext)
+  const { setLoginUser } = useContext(LoginUserContext)
   const apiUrl = `${process.env.REACT_APP_DEV_API_URL}api/myprofile/`
 
   const getLoginUserInfo = useCallback(() => {
@@ -18,7 +19,6 @@ export const useLoginUser = () => {
         },
       })
       .then((res) => {
-        console.log(res.data)
         setLoginUser(res.data)
       })
       .catch(() => {
@@ -29,5 +29,5 @@ export const useLoginUser = () => {
       })
   }, [])
 
-  return { loginUser, getLoginUserInfo }
+  return { getLoginUserInfo }
 }
