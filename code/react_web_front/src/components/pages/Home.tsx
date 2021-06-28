@@ -10,7 +10,6 @@ export const Home: VFC = memo(() => {
   useEffect(() => getPosts(), [])
 
   const { loginUser } = useContext(LoginUserContext)
-  console.log("Home")
 
   return (
     <>
@@ -18,7 +17,7 @@ export const Home: VFC = memo(() => {
         {posts.map((post) => (
           <WrapItem key={post.id} mx="auto">
             <PostCard
-              avatarName={post.userPost}
+              avatarName={post.user_post}
               avatarImageSrc="https://bit.ly/dan-abramov"
               postImageSrc={post.img}
             />
