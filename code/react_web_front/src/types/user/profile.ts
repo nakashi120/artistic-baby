@@ -1,6 +1,6 @@
 export type Profile = {
   id: number
-  nickName: string
+  nickname: string
   img: string | null
   created_on: string
   userProfile: number

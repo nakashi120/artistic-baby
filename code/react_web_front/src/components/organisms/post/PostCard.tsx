@@ -10,12 +10,13 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react"
-import { memo, VFC } from "react"
+import { memo, useEffect, VFC } from "react"
+import { useProfile } from "../../../hooks/useProfile"
 import { LikeButtonWithCount } from "../../atoms/button/LikeButtonWithCount"
 import { AvatarAndName } from "../../molecules/AvatarAndName"
 
 type Props = {
-  avatarName: string
+  avatarName: number
   avatarImageSrc: string
   postImageSrc: string
 }
@@ -24,11 +25,15 @@ export const PostCard: VFC<Props> = memo((props) => {
   console.log("PostCard")
   const { avatarName, avatarImageSrc, postImageSrc } = props
 
+  const { getProfile, profile } = useProfile()
+  useEffect(() => getProfile(avatarName), [avatarName, getProfile])
+  console.log(`ニックネーム：${profile?.id}`)
+
   return (
     <Box w="330px" h="600px" bg="white" borderRadius="10px" shadow="md" p={5}>
       <Stack textAlign="left">
         <AvatarAndName
-          name={Number(avatarName)}
+          name={profile?.nickname as string}
           src={avatarImageSrc}
           size="sm"
         />
@@ -42,7 +47,7 @@ export const PostCard: VFC<Props> = memo((props) => {
         <HStack>
           <LikeButtonWithCount count={10} isLiked={false} />
           <AvatarAndName
-            name={Number(avatarName)}
+            name={profile?.nickname as string}
             src={avatarImageSrc}
             size="xs"
           />

@@ -13,13 +13,16 @@ export const useLoginUser = () => {
 
   const getLoginUserInfo = useCallback(() => {
     axios
-      .get<Profile>(apiUrl, {
+      .get(apiUrl, {
         headers: {
           Authorization: `JWT ${localStorage.localJWT}`,
         },
       })
       .then((res) => {
-        setLoginUser(res.data)
+        setLoginUser(res.data[0])
+        console.log(
+          `ログインユーザーuseLoginUser：${JSON.stringify(res.data[0])}`
+        )
       })
       .catch(() => {
         showMessage({

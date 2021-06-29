@@ -20,7 +20,6 @@ export const useAllPosts = () => {
         },
       })
       .then((res: any) => {
-        console.log(res.data)
         setPosts(res.data)
         history.push("home")
       })
