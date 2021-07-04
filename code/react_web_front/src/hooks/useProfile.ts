@@ -1,32 +1,21 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios"
 import { useCallback, useState } from "react"
 import { Profile } from "../types/user/profile"
-import { useMessage } from "./useMessage"
+
+type Props = {
+  user_profile: number
+  profiles: Array<Profile>
+}
 
 export const useProfile = () => {
-  const apiUrl = process.env.REACT_APP_DEV_API_URL
+  const [userProfile, setUserProfile] = useState<Profile | null>(null)
 
-  const [profile, setProfile] = useState<Profile>()
-  const { showMessage } = useMessage()
-
-  const getProfile = useCallback((userId: number) => {
-    axios
-      .get(`${apiUrl}api/profile/${userId}/`, {
-        headers: {
-          Authorization: `JWT ${localStorage.localJWT}`,
-        },
-      })
-      .then((res) => {
-        setProfile(res.data)
-      })
-      .catch(() => {
-        showMessage({
-          title: "プロフィール取得に失敗しました",
-          status: "error",
-        })
-      })
+  const getProfile = useCallback((props: Props) => {
+    const { user_profile, profiles } = props
+    const targetUserProfile = profiles.find(
+      (profile) => profile.user_profile === user_profile
+    )
+    setUserProfile(targetUserProfile ?? null)
   }, [])
 
-  return { getProfile, profile }
+  return { userProfile, getProfile }
 }

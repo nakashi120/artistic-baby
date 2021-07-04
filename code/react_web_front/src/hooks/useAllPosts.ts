@@ -19,7 +19,7 @@ export const useAllPosts = () => {
           Authorization: `JWT ${localStorage.localJWT}`,
         },
       })
-      .then((res: any) => {
+      .then((res) => {
         setPosts(res.data)
         history.push("home")
       })

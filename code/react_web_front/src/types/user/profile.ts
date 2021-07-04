@@ -3,5 +3,5 @@ export type Profile = {
   nickname: string
   img: string | null
   created_on: string
-  userProfile: number
+  user_profile: number
 }

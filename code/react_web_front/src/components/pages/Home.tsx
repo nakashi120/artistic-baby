@@ -1,15 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Wrap, WrapItem } from "@chakra-ui/react"
-import { memo, useContext, useEffect, VFC } from "react"
+import { memo, useEffect, VFC } from "react"
 import { useAllPosts } from "../../hooks/useAllPosts"
-import { LoginUserContext } from "../../providers/LoginUserProvider"
+import { useAllProfiles } from "../../hooks/useAllProfiles"
+import { useLoginUser } from "../../hooks/useLoginUser"
 import { PostCard } from "../organisms/post/PostCard"
 
 export const Home: VFC = memo(() => {
   const { getPosts, posts } = useAllPosts()
-  useEffect(() => getPosts(), [])
+  const { getAllProfiles, profiles } = useAllProfiles()
+  const { loginUser, getLoginUserInfo } = useLoginUser()
 
-  const { loginUser } = useContext(LoginUserContext)
+  useEffect(() => getPosts(), [])
+  useEffect(() => getAllProfiles(), [])
+  useEffect(() => getLoginUserInfo(), [])
 
   return (
     <>
@@ -17,9 +21,12 @@ export const Home: VFC = memo(() => {
         {posts.map((post) => (
           <WrapItem key={post.id} mx="auto">
             <PostCard
-              avatarName={post.user_post}
+              myProfileId={loginUser!.id}
+              profiles={profiles!}
+              userPost={post.user_post}
               avatarImageSrc="https://bit.ly/dan-abramov"
               postImageSrc={post.img}
+              title={post.title}
             />
           </WrapItem>
         ))}

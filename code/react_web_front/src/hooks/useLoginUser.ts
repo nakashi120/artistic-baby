@@ -7,7 +7,7 @@ import { useMessage } from "./useMessage"
 
 export const useLoginUser = () => {
   const { showMessage } = useMessage()
-  const { setLoginUser } = useContext(LoginUserContext)
+  const { loginUser, setLoginUser } = useContext(LoginUserContext)
   const apiUrl = `${process.env.REACT_APP_DEV_API_URL}api/myprofile/`
 
   const getLoginUserInfo = useCallback(() => {
@@ -19,9 +19,6 @@ export const useLoginUser = () => {
       })
       .then((res) => {
         setLoginUser(res.data[0])
-        console.log(
-          `ログインユーザーuseLoginUser：${JSON.stringify(res.data[0])}`
-        )
       })
       .catch(() => {
         showMessage({
@@ -31,5 +28,5 @@ export const useLoginUser = () => {
       })
   }, [])
 
-  return { getLoginUserInfo }
+  return { getLoginUserInfo, loginUser }
 }

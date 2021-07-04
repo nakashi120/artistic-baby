@@ -11,29 +11,46 @@ import {
   Text,
 } from "@chakra-ui/react"
 import { memo, useEffect, VFC } from "react"
+import { useMyProfile } from "../../../hooks/useMyProfile"
 import { useProfile } from "../../../hooks/useProfile"
+import { Profile } from "../../../types/user/profile"
 import { LikeButtonWithCount } from "../../atoms/button/LikeButtonWithCount"
 import { AvatarAndName } from "../../molecules/AvatarAndName"
 
 type Props = {
-  avatarName: number
+  myProfileId: number
+  userPost: number
   avatarImageSrc: string
   postImageSrc: string
+  profiles: Array<Profile>
+  title: string
 }
 
 export const PostCard: VFC<Props> = memo((props) => {
-  const { avatarName, avatarImageSrc, postImageSrc } = props
+  const {
+    myProfileId,
+    userPost,
+    avatarImageSrc,
+    postImageSrc,
+    profiles,
+    title,
+  } = props
 
-  const { getProfile, profile } = useProfile()
-  useEffect(() => getProfile(avatarName), [avatarName, getProfile])
-  console.log(`ニックネーム：${profile?.id}`)
+  const { getMyProfile } = useMyProfile()
+  useEffect(() => getMyProfile(myProfileId), [myProfileId, getMyProfile])
+
+  const { userProfile, getProfile } = useProfile()
+  useEffect(
+    () => getProfile({ profiles: profiles, user_profile: userPost }),
+    [userPost, getProfile, profiles]
+  )
 
   return (
     <Box w="330px" h="600px" bg="white" borderRadius="10px" shadow="md" p={5}>
       <Stack textAlign="left">
         <AvatarAndName
-          name={profile?.nickname as string}
-          src={avatarImageSrc}
+          name={userProfile?.nickname as string}
+          src={userProfile?.img as string}
           size="sm"
         />
         <Image
@@ -46,11 +63,11 @@ export const PostCard: VFC<Props> = memo((props) => {
         <HStack>
           <LikeButtonWithCount count={10} isLiked={false} />
           <AvatarAndName
-            name={profile?.nickname as string}
-            src={avatarImageSrc}
+            name={userProfile?.nickname as string}
+            src={userProfile?.img as string}
             size="xs"
           />
-          <Text>Yeah!!!</Text>
+          <Text>{title}</Text>
         </HStack>
         <Divider orientation="horizontal" />
         {/* Avatars who pushed like button */}
