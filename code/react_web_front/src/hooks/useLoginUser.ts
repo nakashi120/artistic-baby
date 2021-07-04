@@ -3,7 +3,6 @@ import axios from "axios"
 import { useCallback, useContext } from "react"
 
 import { LoginUserContext } from "../providers/LoginUserProvider"
-import { Profile } from "../types/user/profile"
 import { useMessage } from "./useMessage"
 
 export const useLoginUser = () => {

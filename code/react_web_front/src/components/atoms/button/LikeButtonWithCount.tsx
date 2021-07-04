@@ -18,7 +18,6 @@ export type LikeButtonWithCountProps = {
 
 export const LikeButtonWithCount: VFC<LikeButtonWithCountProps> = memo(
   (props: LikeButtonWithCountProps) => {
-    console.log("LikeButtonWithCount")
     const [isLike, setIsLike] = useState(false)
     const controls = useAnimation()
 

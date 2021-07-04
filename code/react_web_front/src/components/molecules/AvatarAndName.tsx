@@ -9,7 +9,6 @@ type Props = {
 }
 
 export const AvatarAndName: VFC<Props> = memo((props) => {
-  console.log("AvatarAndName")
   const { name, src, size } = props
   return (
     <Flex textAlign="center">

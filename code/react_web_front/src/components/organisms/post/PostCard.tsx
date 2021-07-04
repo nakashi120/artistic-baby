@@ -22,7 +22,6 @@ type Props = {
 }
 
 export const PostCard: VFC<Props> = memo((props) => {
-  console.log("PostCard")
   const { avatarName, avatarImageSrc, postImageSrc } = props
 
   const { getProfile, profile } = useProfile()
