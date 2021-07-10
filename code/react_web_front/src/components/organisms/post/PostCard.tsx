@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   Avatar,
   Box,
@@ -16,33 +17,27 @@ import { useProfile } from "../../../hooks/useProfile"
 import { Profile } from "../../../types/user/profile"
 import { LikeButtonWithCount } from "../../atoms/button/LikeButtonWithCount"
 import { AvatarAndName } from "../../molecules/AvatarAndName"
+import { AvatarFromId } from "../../molecules/AvatarFromId"
 
 type Props = {
   myProfileId: number
   userPost: number
-  avatarImageSrc: string
   postImageSrc: string
+  liked: Array<number>
   profiles: Array<Profile>
   title: string
 }
 
 export const PostCard: VFC<Props> = memo((props) => {
-  const {
-    myProfileId,
-    userPost,
-    avatarImageSrc,
-    postImageSrc,
-    profiles,
-    title,
-  } = props
+  const { myProfileId, userPost, postImageSrc, liked, profiles, title } = props
 
   const { getMyProfile } = useMyProfile()
-  useEffect(() => getMyProfile(myProfileId), [myProfileId, getMyProfile])
+  useEffect(() => getMyProfile(myProfileId), [])
 
   const { userProfile, getProfile } = useProfile()
   useEffect(
     () => getProfile({ profiles: profiles, user_profile: userPost }),
-    [userPost, getProfile, profiles]
+    []
   )
 
   return (
@@ -72,10 +67,13 @@ export const PostCard: VFC<Props> = memo((props) => {
         <Divider orientation="horizontal" />
         {/* Avatars who pushed like button */}
         <HStack>
-          <Avatar size="xs" />
-          <Avatar size="xs" />
-          <Avatar size="xs" />
-          <Avatar size="xs" />
+          {liked.map((likeUserId) => (
+            <AvatarFromId
+              key={likeUserId}
+              id={likeUserId}
+              profiles={profiles}
+            />
+          ))}
         </HStack>
         {/* Other user's comment display area */}
         <Divider orientation="horizontal" />

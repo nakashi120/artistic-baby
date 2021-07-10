@@ -24,7 +24,7 @@ export const Home: VFC = memo(() => {
               myProfileId={loginUser!.id}
               profiles={profiles!}
               userPost={post.user_post}
-              avatarImageSrc="https://bit.ly/dan-abramov"
+              liked={post.liked}
               postImageSrc={post.img}
               title={post.title}
             />
