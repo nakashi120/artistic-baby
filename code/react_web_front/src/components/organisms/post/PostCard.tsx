@@ -14,22 +14,34 @@ import {
 import { memo, useEffect, VFC } from "react"
 import { useMyProfile } from "../../../hooks/useMyProfile"
 import { useProfile } from "../../../hooks/useProfile"
+import { Comment } from "../../../types/comment/comment"
 import { Profile } from "../../../types/user/profile"
 import { LikeButtonWithCount } from "../../atoms/button/LikeButtonWithCount"
 import { AvatarAndName } from "../../molecules/AvatarAndName"
 import { AvatarFromId } from "../../molecules/AvatarFromId"
 
 type Props = {
+  postId: number
   myProfileId: number
   userPost: number
   postImageSrc: string
   liked: Array<number>
   profiles: Array<Profile>
+  comments: Array<Comment>
   title: string
 }
 
 export const PostCard: VFC<Props> = memo((props) => {
-  const { myProfileId, userPost, postImageSrc, liked, profiles, title } = props
+  const {
+    postId,
+    myProfileId,
+    userPost,
+    postImageSrc,
+    liked,
+    profiles,
+    comments,
+    title,
+  } = props
 
   const { getMyProfile } = useMyProfile()
   useEffect(() => getMyProfile(myProfileId), [])
@@ -39,6 +51,10 @@ export const PostCard: VFC<Props> = memo((props) => {
     () => getProfile({ profiles: profiles, user_profile: userPost }),
     []
   )
+
+  const commentsOnPost = comments.filter((comment) => {
+    return comment.post === postId
+  })
 
   return (
     <Box w="330px" h="600px" bg="white" borderRadius="10px" shadow="md" p={5}>
@@ -78,14 +94,15 @@ export const PostCard: VFC<Props> = memo((props) => {
         {/* Other user's comment display area */}
         <Divider orientation="horizontal" />
         <Stack>
-          <HStack>
-            <Avatar size="2xs" />
-            <Text>sample comment</Text>
-          </HStack>
-          <HStack>
-            <Avatar size="2xs" />
-            <Text>sample comment</Text>
-          </HStack>
+          {commentsOnPost.map((commentOnPost) => (
+            <HStack>
+              <AvatarFromId
+                id={commentOnPost.user_comment}
+                profiles={profiles}
+              />
+              <Text>{commentOnPost.text}</Text>
+            </HStack>
+          ))}
         </Stack>
         {/* Comment post area */}
         <Divider orientation="horizontal" />
