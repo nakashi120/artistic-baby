@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Avatar } from "@chakra-ui/react"
 import { memo, useEffect, VFC } from "react"
 import { useProfile } from "../../hooks/useProfile"
